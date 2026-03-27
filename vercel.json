@@ -1,7 +1,7 @@
 {
   "version": 2,
   "framework": "vite",
-  "installCommand": "cd unipulse-ai/frontend && npm ci",
+  "installCommand": "cd unipulse-ai/frontend && npm install --no-audit --no-fund",
   "buildCommand": "cd unipulse-ai/frontend && npm run build",
   "outputDirectory": "unipulse-ai/frontend/dist",
   "rewrites": [
