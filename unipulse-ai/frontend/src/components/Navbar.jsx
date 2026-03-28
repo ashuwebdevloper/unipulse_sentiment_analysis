@@ -5,7 +5,33 @@ export default function Navbar() {
   const location = useLocation();
   
   const isActive = (path) => location.pathname === path;
-  
+
+  // Helper function to keep the JSX clean, since the styles are identical for all links
+  const getLinkStyle = (path) => ({
+    color: isActive(path) ? "var(--accent-primary)" : "var(--text-secondary)",
+    textDecoration: "none",
+    fontSize: 13,
+    fontWeight: 600,
+    padding: "8px 16px",
+    borderRadius: "var(--radius-md)",
+    transition: "all var(--transition-fast)",
+    background: isActive(path) ? "rgba(88, 166, 255, 0.1)" : "transparent",
+  });
+
+  const handleMouseEnter = (e, path) => {
+    if (!isActive(path)) {
+      e.target.style.background = "var(--bg-tertiary)";
+      e.target.style.color = "var(--text-primary)";
+    }
+  };
+
+  const handleMouseLeave = (e, path) => {
+    if (!isActive(path)) {
+      e.target.style.background = "transparent";
+      e.target.style.color = "var(--text-secondary)";
+    }
+  };
+
   return (
     <nav style={{
       background: "var(--bg-secondary)",
@@ -54,58 +80,32 @@ export default function Navbar() {
       <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
         <Link 
           to="/"
-          style={{
-            color: isActive("/") ? "var(--accent-primary)" : "var(--text-secondary)",
-            textDecoration: "none",
-            fontSize: 13,
-            fontWeight: 600,
-            padding: "8px 16px",
-            borderRadius: "var(--radius-md)",
-            transition: "all var(--transition-fast)",
-            background: isActive("/") ? "rgba(88, 166, 255, 0.1)" : "transparent",
-          }}
-          onMouseEnter={(e) => {
-            if (!isActive("/")) {
-              e.target.style.background = "var(--bg-tertiary)";
-              e.target.style.color = "var(--text-primary)";
-            }
-          }}
-          onMouseLeave={(e) => {
-            if (!isActive("/")) {
-              e.target.style.background = "transparent";
-              e.target.style.color = "var(--text-secondary)";
-            }
-          }}
+          style={getLinkStyle("/")}
+          onMouseEnter={(e) => handleMouseEnter(e, "/")}
+          onMouseLeave={(e) => handleMouseLeave(e, "/")}
         >
           Dashboard
         </Link>
+
         <Link 
           to="/compare"
-          style={{
-            color: isActive("/compare") ? "var(--accent-primary)" : "var(--text-secondary)",
-            textDecoration: "none",
-            fontSize: 13,
-            fontWeight: 600,
-            padding: "8px 16px",
-            borderRadius: "var(--radius-md)",
-            transition: "all var(--transition-fast)",
-            background: isActive("/compare") ? "rgba(88, 166, 255, 0.1)" : "transparent",
-          }}
-          onMouseEnter={(e) => {
-            if (!isActive("/compare")) {
-              e.target.style.background = "var(--bg-tertiary)";
-              e.target.style.color = "var(--text-primary)";
-            }
-          }}
-          onMouseLeave={(e) => {
-            if (!isActive("/compare")) {
-              e.target.style.background = "transparent";
-              e.target.style.color = "var(--text-secondary)";
-            }
-          }}
+          style={getLinkStyle("/compare")}
+          onMouseEnter={(e) => handleMouseEnter(e, "/compare")}
+          onMouseLeave={(e) => handleMouseLeave(e, "/compare")}
         >
           Compare
         </Link>
+
+        {/* Added About Link */}
+        <Link 
+          to="/about"
+          style={getLinkStyle("/about")}
+          onMouseEnter={(e) => handleMouseEnter(e, "/about")}
+          onMouseLeave={(e) => handleMouseLeave(e, "/about")}
+        >
+          About
+        </Link>
+
         <ThemeToggle />
       </div>
     </nav>
